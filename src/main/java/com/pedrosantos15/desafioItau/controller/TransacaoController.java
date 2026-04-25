@@ -1,5 +1,6 @@
 package com.pedrosantos15.desafioItau.controller;
 
+import com.pedrosantos15.desafioItau.dto.EstatisticaDTO;
 import com.pedrosantos15.desafioItau.dto.TransacaoDTO;
 import com.pedrosantos15.desafioItau.model.TransacaoModel;
 import com.pedrosantos15.desafioItau.service.TransacaoService;
@@ -22,7 +23,6 @@ public class TransacaoController {
     public ResponseEntity<TransacaoDTO> receberTransacao(@Valid @RequestBody TransacaoDTO transacaoDTO){
 
         service.receberTransacao(transacaoDTO);
-        System.out.println(TransacaoModel.getTransacoes());
         return ResponseEntity.status(HttpStatus.CREATED).build();
 
     }
@@ -36,5 +36,10 @@ public class TransacaoController {
     public ResponseEntity<Void> deletarTransacao(){
         service.deletarTransacao();
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/estatistica")
+    public ResponseEntity<EstatisticaDTO> calcularEstatistica(){
+        return ResponseEntity.ok(service.calcularEstatisticas());
     }
 }
