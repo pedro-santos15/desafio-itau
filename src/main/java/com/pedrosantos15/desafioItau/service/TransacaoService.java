@@ -6,6 +6,8 @@ import com.pedrosantos15.desafioItau.model.TransacaoModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransacaoService {
 
@@ -19,10 +21,16 @@ public class TransacaoService {
 
     public TransacaoDTO receberTransacao(TransacaoDTO transacaoDTO){
         transacao = mapper.dtoToEntity(transacaoDTO);
+        TransacaoModel.getTransacoes().add(transacao);
         return transacaoDTO;
     }
 
     public TransacaoDTO getTransacao(){
         return mapper.entityToDto(transacao);
+    }
+
+    public void deletarTransacao(){
+        transacao = null;
+        TransacaoModel.getTransacoes().clear();
     }
 }
